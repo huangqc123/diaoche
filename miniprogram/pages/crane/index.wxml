@@ -1,0 +1,215 @@
+<scroll-view scroll-y class="page-scroll" enhanced show-scrollbar="{{false}}">
+  <view class="container">
+
+    <!-- ===== 顶部图示卡片 ===== -->
+    <view class="card diagram-card">
+      <view class="diagram-wrap">
+        <!-- 吊车主体 -->
+        <view class="crane-truck">
+          <view class="truck-cab"></view>
+          <view class="truck-body"></view>
+          <view class="truck-wheel w1"></view>
+          <view class="truck-wheel w2"></view>
+          <view class="truck-wheel w3"></view>
+        </view>
+        <!-- 起重臂 -->
+        <view class="crane-boom"></view>
+        <!-- 右侧吊装区 -->
+        <view class="lift-area">
+          <!-- 滑轮 -->
+          <view class="pulley"></view>
+          <!-- 吊索具 -->
+          <view class="sling-group">
+            <view class="sling-line sl"></view>
+            <view class="sling-line sr"></view>
+            <view class="label-a">A</view>
+            <view class="label-h2">h2</view>
+          </view>
+          <!-- 吊物 -->
+          <view class="load-box">
+            <text class="load-text">吊物</text>
+          </view>
+          <view class="label-h1">h1</view>
+          <!-- 就位高度 -->
+          <view class="ground-platform"></view>
+          <view class="label-h3">h3</view>
+        </view>
+        <!-- R标注 -->
+        <view class="r-dimension">
+          <view class="r-line"></view>
+          <text class="r-text">R</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- ===== 输入表单 ===== -->
+    <view class="card">
+      <view class="card-header">
+        <view class="title-bar"></view>
+        <text class="section-title-text">参数输入</text>
+        <text class="example-btn" bindtap="onFillExample">填入示例</text>
+      </view>
+
+      <!-- 幅度 R -->
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">幅度（R）</text>
+          <text class="label-unit">单位：米/m</text>
+        </view>
+        <input class="input-field" type="digit" placeholder="请输入工作幅度" value="{{R}}" bindinput="onInputR" placeholder-class="input-field-placeholder" />
+      </view>
+
+      <!-- 吊物高度 h1 -->
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">吊物自身高度（h1）</text>
+          <text class="label-unit">单位：米/m</text>
+        </view>
+        <input class="input-field" type="digit" placeholder="请输入吊物自身高度" value="{{h1}}" bindinput="onInputH1" placeholder-class="input-field-placeholder" />
+      </view>
+
+      <!-- 吊索具长度 h2 -->
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">吊索具长度（h2）</text>
+          <text class="label-unit">单位：米/m</text>
+        </view>
+        <input class="input-field" type="digit" placeholder="请输入吊索具长度" value="{{h2}}" bindinput="onInputH2" placeholder-class="input-field-placeholder" />
+      </view>
+
+      <!-- 索具夹角 A -->
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">索具夹角（A）</text>
+          <text class="label-unit">单位：度/°</text>
+        </view>
+        <picker mode="selector" range="{{angleOptions}}" value="{{angleIndex}}" bindchange="onAngleChange">
+          <view class="picker-field">
+            <text class="picker-value">{{A}}°</text>
+            <view class="picker-arrow"></view>
+          </view>
+        </picker>
+      </view>
+
+      <!-- 就位高度 h3 -->
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">就位高度（h3）</text>
+          <text class="label-unit">单位：米/m</text>
+        </view>
+        <input class="input-field" type="digit" placeholder="请输入就位高度" value="{{h3}}" bindinput="onInputH3" placeholder-class="input-field-placeholder" />
+      </view>
+
+      <!-- 吊物重量 W -->
+      <view class="input-group last">
+        <view class="input-label">
+          <text class="label-text">吊物重量（W）</text>
+          <text class="label-unit">单位：吨/t</text>
+        </view>
+        <input class="input-field" type="digit" placeholder="请输入吊物重量" value="{{W}}" bindinput="onInputW" placeholder-class="input-field-placeholder" />
+      </view>
+    </view>
+
+    <!-- ===== 操作按钮 ===== -->
+    <view class="btn-group">
+      <view class="btn-primary" bindtap="onCalculate">开始计算</view>
+      <view class="btn-reset" bindtap="onReset">重置</view>
+    </view>
+    <view style="text-align: center; font-size: 24rpx; color: #999; margin: 10rpx 0 20rpx;">⚠ 计算结果仅供参考，请以相关标准规范为准</view>
+
+    <!-- ===== 计算结果 ===== -->
+    <block wx:if="{{showResult && result}}">
+      <!-- 需求摘要 -->
+      <view class="card result-card">
+        <view class="card-header">
+          <view class="title-bar"></view>
+          <text class="section-title-text">需求摘要</text>
+        </view>
+        <view class="summary-grid">
+          <view class="summary-item">
+            <text class="summary-value">{{result.W_required}}</text>
+            <text class="summary-label">所需吊重(t)</text>
+          </view>
+          <view class="summary-item">
+            <text class="summary-value">{{result.H_required}}</text>
+            <text class="summary-label">最小起升高度(m)</text>
+          </view>
+          <view class="summary-item">
+            <text class="summary-value">{{result.R}}</text>
+            <text class="summary-label">工作幅度(m)</text>
+          </view>
+          <view class="summary-item">
+            <text class="summary-value">{{result.h2v}}</text>
+            <text class="summary-label">索具垂直分量(m)</text>
+          </view>
+        </view>
+        <view class="summary-note">
+          <text>* 吊重含10%动载系数，高度含1.5m安全距离</text>
+        </view>
+      </view>
+
+      <!-- 推荐吊车 -->
+      <view class="card">
+        <view class="card-header">
+          <view class="title-bar"></view>
+          <text class="section-title-text">推荐吊车 <text style="font-size: 24rpx; font-weight: normal; color: #666;">(仅供参考)</text></text>
+          <text class="result-count">共 {{result.satisfiedCount}} 台满足</text>
+        </view>
+
+        <view wx:if="{{result.satisfiedCount === 0}}" class="no-result">
+          <text class="no-result-icon">😔</text>
+          <text class="no-result-text">暂无满足条件的吊车型号</text>
+          <text class="no-result-hint">请调整参数后重试</text>
+        </view>
+
+        <view wx:for="{{result.cranes}}" wx:key="name" class="crane-card {{item.status}}">
+          <view class="crane-card-top">
+            <view class="crane-name-wrap">
+              <text class="crane-name">{{item.name}}</text>
+              <text class="crane-capacity">{{item.capacity}}t</text>
+            </view>
+            <view class="tag {{item.status === 'ok' ? 'tag-success' : (item.status === 'outOfRange' ? 'tag-info' : 'tag-danger')}}">
+              {{item.statusText}}
+            </view>
+          </view>
+
+          <view wx:if="{{item.status !== 'outOfRange'}}" class="crane-card-body">
+            <view class="crane-stat">
+              <text class="stat-label">该幅度下起重量</text>
+              <text class="stat-value {{item.qSatisfied ? 'text-ok' : 'text-bad'}}">{{item.qAtR}}t</text>
+            </view>
+            <view class="crane-stat">
+              <text class="stat-label">该幅度下最大高度</text>
+              <text class="stat-value {{item.hSatisfied ? 'text-ok' : 'text-bad'}}">{{item.hAtR}}m</text>
+            </view>
+            <view class="crane-stat">
+              <text class="stat-label">主臂长度</text>
+              <text class="stat-value">{{item.boomLen}}</text>
+            </view>
+            <view wx:if="{{item.status === 'ok'}}" class="crane-margins">
+              <text class="margin-text">吨位余量 +{{item.qMargin}}%</text>
+              <text class="margin-text">高度余量 +{{item.hMargin}}%</text>
+            </view>
+          </view>
+
+          <view wx:if="{{item.status === 'outOfRange'}}" class="crane-card-body">
+            <text class="stat-label">有效幅度范围：{{item.radiusRange}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 免责声明 -->
+      <view class="disclaimer">
+        <text>⚠ 以上计算结果仅供参考，实际选型请以吊车性能表为准，并由专业人员核算确认。</text>
+      </view>
+    </block>
+
+    <!-- 底部版权 -->
+    <view class="copyright">
+      <text>© 吊装计算助手 2024-2026</text>
+    </view>
+
+  </view>
+</scroll-view>
+<!-- 计算后插屏广告已暂时注释 -->
+<!-- <jd-ad id="jdAd" mode="interstitial" /> -->

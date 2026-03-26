@@ -1,0 +1,167 @@
+<scroll-view scroll-y class="page-scroll" enhanced show-scrollbar="{{false}}">
+<view class="container">
+
+  <!-- ===== 图示 ===== -->
+  <view class="card diagram-card">
+    <view class="angle-diagram">
+      <view class="d-top-ring"></view>
+      <view class="d-line-left"></view>
+      <view class="d-line-right"></view>
+      <view class="d-arc"></view>
+      <text class="d-label-a">A</text>
+      <text class="d-label-l-left">L</text>
+      <text class="d-label-l-right">L</text>
+      <view class="d-load-bar">
+        <text class="d-load-text">吊物</text>
+      </view>
+      <view class="d-spread-line">
+        <text class="d-label-d">D</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 模式切换 ===== -->
+  <view class="mode-switch">
+    <view class="mode-btn {{mode === 'dimToAngle' ? 'mode-active' : ''}}" data-mode="dimToAngle" bindtap="switchMode">
+      <text>尺寸 → 角度</text>
+    </view>
+    <view class="mode-btn {{mode === 'angleToForce' ? 'mode-active' : ''}}" data-mode="angleToForce" bindtap="switchMode">
+      <text>角度 → 分力</text>
+    </view>
+  </view>
+
+  <!-- ===== 模式1: 尺寸算角度 ===== -->
+  <view wx:if="{{mode === 'dimToAngle'}}" class="card">
+    <view class="card-header">
+      <view class="title-bar"></view>
+      <text class="section-title-text">已知尺寸求角度</text>
+    </view>
+    <view class="input-group">
+      <view class="input-label">
+        <text class="label-text">吊索长度（L）</text>
+        <text class="label-unit">单位：米/m</text>
+      </view>
+      <input class="input-field" type="digit" placeholder="吊索从吊钩到吊点的长度" value="{{slingLen}}" bindinput="onInputSlingLen" placeholder-class="input-field-placeholder" />
+    </view>
+    <view class="input-group">
+      <view class="input-label">
+        <text class="label-text">吊点间距（D）</text>
+        <text class="label-unit">单位：米/m</text>
+      </view>
+      <input class="input-field" type="digit" placeholder="两吊点之间的水平距离" value="{{spread}}" bindinput="onInputSpread" placeholder-class="input-field-placeholder" />
+    </view>
+    <view class="input-group last">
+      <view class="input-label">
+        <text class="label-text">吊索分支数（n）</text>
+        <text class="label-unit">单位：根</text>
+      </view>
+      <input class="input-field" type="number" placeholder="默认2根" value="{{branches}}" bindinput="onInputBranches" placeholder-class="input-field-placeholder" />
+    </view>
+  </view>
+
+  <!-- ===== 模式2: 角度算分力 ===== -->
+  <view wx:if="{{mode === 'angleToForce'}}" class="card">
+    <view class="card-header">
+      <view class="title-bar"></view>
+      <text class="section-title-text">已知角度求分力</text>
+    </view>
+    <view class="input-group">
+      <view class="input-label">
+        <text class="label-text">索具夹角（A）</text>
+        <text class="label-unit">单位：度/°</text>
+      </view>
+      <input class="input-field" type="digit" placeholder="两索之间的夹角" value="{{inputAngle}}" bindinput="onInputAngle" placeholder-class="input-field-placeholder" />
+    </view>
+    <view class="input-group">
+      <view class="input-label">
+        <text class="label-text">吊物重量（W）</text>
+        <text class="label-unit">单位：吨/t</text>
+      </view>
+      <input class="input-field" type="digit" placeholder="请输入吊物重量" value="{{inputWeight}}" bindinput="onInputWeight" placeholder-class="input-field-placeholder" />
+    </view>
+    <view class="input-group last">
+      <view class="input-label">
+        <text class="label-text">吊索分支数（n）</text>
+        <text class="label-unit">单位：根</text>
+      </view>
+      <input class="input-field" type="number" placeholder="默认2根" value="{{inputN}}" bindinput="onInputN" placeholder-class="input-field-placeholder" />
+    </view>
+  </view>
+
+  <!-- 按钮 -->
+  <view class="btn-group">
+    <view class="btn-primary" bindtap="{{mode === 'dimToAngle' ? 'calcDimToAngle' : 'calcAngleToForce'}}">开始计算</view>
+    <view class="btn-reset" bindtap="onReset">重置</view>
+  </view>
+  <view style="text-align: center; font-size: 24rpx; color: #999; margin: 10rpx 0 20rpx;">⚠ 计算结果仅供参考，请以相关标准规范为准</view>
+
+  <!-- ===== 结果 ===== -->
+  <block wx:if="{{showResult && result}}">
+    <!-- 安全状态大字 -->
+    <view class="card result-hero" style="border-left: 8rpx solid {{result.safetyColor}}">
+      <view class="result-hero-top">
+        <text class="result-angle">{{result.A}}°</text>
+        <view class="safety-badge" style="background: {{result.safetyColor}}">
+          <text>{{result.safety}}</text>
+        </view>
+      </view>
+      <text class="result-factor-label">载荷分配系数</text>
+      <text class="result-factor" style="color: {{result.safetyColor}}">×{{result.factor}}</text>
+    </view>
+
+    <!-- 详细数据 -->
+    <view class="card">
+      <view class="card-header">
+        <view class="title-bar"></view>
+        <text class="section-title-text">计算详情</text>
+      </view>
+
+      <block wx:if="{{result.type === 'dimToAngle'}}">
+        <view class="detail-row"><text class="dl">吊索长度 L</text><text class="dv">{{result.L}} m</text></view>
+        <view class="detail-row"><text class="dl">吊点间距 D</text><text class="dv">{{result.D}} m</text></view>
+        <view class="detail-row"><text class="dl">计算夹角 A</text><text class="dv highlight">{{result.A}}°</text></view>
+        <view class="detail-row"><text class="dl">cos(A/2)</text><text class="dv">{{result.cosHalf}}</text></view>
+        <view class="detail-row"><text class="dl">分力系数 1/cos(A/2)</text><text class="dv highlight">×{{result.factor}}</text></view>
+        <view class="detail-row"><text class="dl">吊索垂直高度 H</text><text class="dv">{{result.H}} m</text></view>
+      </block>
+
+      <block wx:if="{{result.type === 'angleToForce'}}">
+        <view class="detail-row"><text class="dl">吊物重量</text><text class="dv">{{result.W}} t</text></view>
+        <view class="detail-row"><text class="dl">总重力 F = W×g</text><text class="dv">{{result.F}} kN</text></view>
+        <view class="detail-row"><text class="dl">夹角</text><text class="dv">{{result.A}}°</text></view>
+        <view class="detail-row"><text class="dl">分支数</text><text class="dv">{{result.n}} 根</text></view>
+        <view class="detail-row"><text class="dl">分力系数</text><text class="dv highlight">×{{result.factor}}</text></view>
+        <view class="detail-row"><text class="dl">单根绳拉力</text><text class="dv highlight">{{result.S}} kN</text></view>
+        <view class="detail-row"><text class="dl">单根绳等效吨位</text><text class="dv highlight">{{result.S_t}} t</text></view>
+      </block>
+    </view>
+  </block>
+
+  <!-- ===== 角度参照表 ===== -->
+  <view class="card">
+    <view class="card-header">
+      <view class="title-bar"></view>
+      <text class="section-title-text">夹角系数速查表</text>
+    </view>
+    <view class="ref-table">
+      <view class="ref-row ref-header">
+        <text class="ref-cell">夹角 A</text>
+        <text class="ref-cell">分力系数</text>
+        <text class="ref-cell">备注</text>
+      </view>
+      <view wx:for="{{angleRefTable}}" wx:key="angle" class="ref-row {{item.angle > 90 ? 'ref-danger' : (item.angle > 60 ? 'ref-warn' : '')}}">
+        <text class="ref-cell">{{item.angle}}°</text>
+        <text class="ref-cell ref-bold">×{{item.factor}}</text>
+        <text class="ref-cell ref-note">{{item.note}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="disclaimer">
+    <text>⚠ 以上计算结果仅供参考，实际施工请由专业人员核算确认。</text>
+  </view>
+</view>
+</scroll-view>
+
+<!-- 计算后插屏广告已暂时注释 -->
+<!-- <jd-ad id="jdAd" mode="interstitial" /> -->

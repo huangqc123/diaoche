@@ -1,0 +1,93 @@
+<scroll-view scroll-y class="page-scroll" enhanced show-scrollbar="{{false}}">
+  <!-- ===== 顶部 Banner ===== -->
+  <view class="hero">
+    <view class="hero-bg">
+      <view class="hero-circle c1"></view>
+      <view class="hero-circle c2"></view>
+      <view class="hero-circle c3"></view>
+    </view>
+    <view class="hero-content">
+      <text class="hero-title">吊装计算助手</text>
+      <text class="hero-subtitle">专业吊装选型 · 安全高效计算</text>
+    </view>
+    <!-- 轮播提示 -->
+    <view class="tip-bar">
+      <text class="tip-icon">💡</text>
+      <text class="tip-text">{{tips[currentTip]}}</text>
+    </view>
+  </view>
+
+  <!-- ===== 功能入口 ===== -->
+  <view class="container">
+    <view class="section-header">
+      <view class="title-bar"></view>
+      <text class="section-title">计算工具</text>
+    </view>
+
+    <view class="feature-grid">
+      <view
+        wx:for="{{features}}"
+        wx:key="id"
+        class="feature-card"
+        data-id="{{item.id}}"
+        bindtap="onFeatureTap"
+        hover-class="card-hover"
+      >
+        <view class="feature-icon-wrap" style="background: {{item.bgColor}}">
+          <text class="feature-icon">{{item.icon}}</text>
+        </view>
+        <view class="feature-info">
+          <text class="feature-title" style="color: {{item.color}}">{{item.title}}</text>
+          <text class="feature-desc">{{item.desc}}</text>
+        </view>
+        <text class="feature-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- ===== 快捷计算卡 ===== -->
+    <view class="section-header" style="margin-top: 12rpx;">
+      <view class="title-bar"></view>
+      <text class="section-title">常用速算</text>
+    </view>
+
+    <view class="quick-row">
+      <view class="quick-chip" data-id="crane" bindtap="onFeatureTap">
+        <text class="chip-emoji">🚛</text>
+        <text class="chip-text">25t吊车</text>
+      </view>
+      <view class="quick-chip" data-id="crane" bindtap="onFeatureTap">
+        <text class="chip-emoji">🚚</text>
+        <text class="chip-text">50t吊车</text>
+      </view>
+      <view class="quick-chip" data-id="capacity" bindtap="onFeatureTap">
+        <text class="chip-emoji">⛓️</text>
+        <text class="chip-text">绳索承载</text>
+      </view>
+      <view class="quick-chip" data-id="angle" bindtap="onFeatureTap">
+        <text class="chip-emoji">📐</text>
+        <text class="chip-text">角度速查</text>
+      </view>
+    </view>
+
+    <!-- ===== 安全须知卡 ===== -->
+    <view class="safety-card">
+      <view class="safety-header">
+        <text class="safety-icon">⚠️</text>
+        <text class="safety-title">安全提示</text>
+      </view>
+      <view class="safety-list">
+        <text class="safety-item">• 本工具仅供辅助参考，不替代专业核算</text>
+        <text class="safety-item">• 实际施工请遵循 GB/T 5972 等国家标准</text>
+        <text class="safety-item">• 吊装作业必须由持证人员指挥操作</text>
+        <text class="safety-item">• 作业前请全面检查设备和索具状态</text>
+      </view>
+    </view>
+
+    <!-- 底部 -->
+    <view class="copyright">
+      <text>© 吊装计算助手 2024-2026</text>
+    </view>
+  </view>
+</scroll-view>
+<!-- 开屏广告已暂时注释 -->
+<!-- <jd-ad id="jdAd" mode="splash" /> -->

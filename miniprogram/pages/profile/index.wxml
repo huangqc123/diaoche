@@ -1,0 +1,202 @@
+<view class="profile-page">
+
+  <!-- ===== 统计数据（登录功能已隐藏） ===== -->
+  <view class="stats-bar">
+    <view class="stat-item">
+      <text class="stat-num">{{historyCount}}</text>
+      <text class="stat-name">总计算</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-num">{{craneCount}}</text>
+      <text class="stat-name">吊车计算</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-num">{{ropeCount}}</text>
+      <text class="stat-name">吊绳计算</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-num">6</text>
+      <text class="stat-name">工具数</text>
+    </view>
+  </view>
+
+  <!-- ===== 工具快捷入口 ===== -->
+  <view class="tools-section">
+    <view class="section-head">
+      <text class="section-label">🛠 常用工具</text>
+    </view>
+    <view class="tools-grid">
+      <view wx:for="{{toolEntries}}" wx:key="id" class="tool-item"
+        data-url="{{item.url}}" bindtap="goToTool">
+        <view class="tool-icon-wrap" style="background: {{item.color}}15">
+          <text class="tool-icon">{{item.icon}}</text>
+        </view>
+        <text class="tool-label">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 功能菜单 ===== -->
+  <view class="menu-section">
+    <view wx:for="{{menuItems}}" wx:key="id" class="menu-item"
+      data-id="{{item.id}}" bindtap="onMenuTap">
+      <view class="menu-left">
+        <text class="menu-icon">{{item.icon}}</text>
+        <view class="menu-text">
+          <text class="menu-label">{{item.label}}</text>
+          <text class="menu-desc">{{item.desc}}</text>
+        </view>
+      </view>
+      <view class="menu-right">
+        <text wx:if="{{item.badge}}" class="menu-badge">{{item.badge}}</text>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 底部链接 ===== -->
+  <view class="footer-links">
+    <view class="link-row">
+      <text class="footer-link" bindtap="onShowTerms">使用协议</text>
+      <text class="link-dot">·</text>
+      <text class="footer-link" bindtap="onShowPrivacy">隐私政策</text>
+      <text class="link-dot">·</text>
+      <text class="footer-link" bindtap="onShowAboutFooter">关于我们</text>
+    </view>
+    <text class="copyright-text">© 吊装计算助手 2024-2026</text>
+    <text class="version-text">v2.0.0</text>
+  </view>
+
+  <!-- ===== 计算历史弹窗 ===== -->
+  <view wx:if="{{showHistoryModal}}" class="modal-mask" bindtap="closeModal">
+    <view class="modal-content" catchtap="">
+      <view class="modal-header">
+        <text class="modal-title">📋 计算历史</text>
+        <text class="modal-close" bindtap="closeModal">✕</text>
+      </view>
+      <scroll-view scroll-y class="modal-body">
+        <view wx:if="{{calcHistory.length === 0}}" class="empty-state">
+          <text class="empty-icon">📭</text>
+          <text class="empty-text">暂无计算记录</text>
+          <text class="empty-sub">使用计算工具后记录将显示在这里</text>
+        </view>
+        <view wx:for="{{calcHistory}}" wx:key="index" class="history-item">
+          <view class="history-top">
+            <text class="history-type type-{{item.type}}">
+              {{item.type === 'crane' ? '🏗 吊车' : item.type === 'rope' ? '⛓ 吊绳' : '📐 其他'}}
+            </text>
+            <text class="history-time">{{item.time}}</text>
+          </view>
+          <view class="history-detail" wx:if="{{item.type === 'crane'}}">
+            <text>幅度{{item.params.R}}m / 重量{{item.params.W}}t → {{item.result.bestChoice || '无推荐'}}</text>
+          </view>
+          <view class="history-detail" wx:elif="{{item.type === 'rope'}}">
+            <text>重量{{item.params.W}}t / {{item.params.n}}根 → ∅{{item.result.d_selected}}mm</text>
+          </view>
+          <view class="history-detail" wx:else>
+            <text>{{item.summary || '计算完成'}}</text>
+          </view>
+        </view>
+      </scroll-view>
+      <view wx:if="{{calcHistory.length > 0}}" class="modal-footer">
+        <text class="clear-btn" bindtap="clearHistory">🗑 清空历史</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 使用帮助弹窗 ===== -->
+  <view wx:if="{{showHelpModal}}" class="modal-mask" bindtap="closeModal">
+    <view class="modal-content help-modal" catchtap="">
+      <view class="modal-header">
+        <text class="modal-title">❓ 使用帮助</text>
+        <text class="modal-close" bindtap="closeModal">✕</text>
+      </view>
+      <scroll-view scroll-y class="modal-body">
+        <view class="help-section">
+          <text class="help-title">🏗️ 吊车选型计算</text>
+          <text class="help-text">输入幅度、吊物高度、索具参数和重量，系统自动匹配14款吊车型号，推荐最适合的机型。</text>
+        </view>
+        <view class="help-section">
+          <text class="help-title">⛓️ 钢丝绳选型</text>
+          <text class="help-text">输入重量、分支数和角度，计算单绳拉力和最小破断力，推荐标准绳径。</text>
+        </view>
+        <view class="help-section">
+          <text class="help-title">📐 吊装角度计算</text>
+          <text class="help-text">两种模式：根据吊索长度和跨距反算夹角；或根据角度和重量计算每根绳的分力。</text>
+        </view>
+        <view class="help-section">
+          <text class="help-title">🔍 钢丝绳损坏核算</text>
+          <text class="help-text">依据GB/T 5972-2016标准，检查断丝、磨损、腐蚀、变形、热损伤五大类项目，判定是否达报废标准。</text>
+        </view>
+        <view class="help-section">
+          <text class="help-title">💪 承载力计算</text>
+          <text class="help-text">选择绳索结构、直径和强度等级，计算最小破断力，并展示不同安全系数下的许用承载力。</text>
+        </view>
+        <view class="help-section">
+          <text class="help-title">📖 知识手册</text>
+          <text class="help-text">涵盖钢丝绳基础知识、结构详解、规格参数、使用维护、报废标准和相关国标规范。</text>
+        </view>
+        <view class="help-section">
+          <text class="help-title">⚠️ 免责声明</text>
+          <text class="help-text">所有计算结果仅供参考，实际施工必须由持证专业人员核算确认。吊车性能数据为近似值，请以设备实际技术参数为准。</text>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- ===== 常用参数速查弹窗 ===== -->
+  <view wx:if="{{showParamsModal}}" class="modal-mask" bindtap="closeModal">
+    <view class="modal-content params-modal" catchtap="">
+      <view class="modal-header">
+        <text class="modal-title">⚙️ 常用参数速查</text>
+        <text class="modal-close" bindtap="closeModal">✕</text>
+      </view>
+      <scroll-view scroll-y class="modal-body">
+        <view class="help-section">
+          <text class="help-title">安全系数推荐</text>
+          <text class="help-text">人力起升 ≥ 4.0\n机械起升 ≥ 5.0\n捆绑吊索（一般）≥ 6.0\n捆绑吊索（重要）≥ 8.0\n缆风绳 ≥ 3.5\n载人升降 ≥ 9.0</text>
+        </view>
+        <view class="help-section">
+          <text class="help-title">角度系数参考</text>
+          <text class="help-text">夹角 0° → 系数 1.000\n夹角 30° → 系数 1.035\n夹角 45° → 系数 1.082\n夹角 60° → 系数 1.155\n夹角 90° → 系数 1.414\n夹角 120° → 系数 2.000（危险！）</text>
+        </view>
+        <view class="help-section">
+          <text class="help-title">常用钢丝绳Ro系数</text>
+          <text class="help-text">6×19类 1770MPa → Ro = 0.401\n6×37类 1770MPa → Ro = 0.367\n6×61类 1770MPa → Ro = 0.356\n35W×7类 1770MPa → Ro = 0.389</text>
+        </view>
+        <view class="help-section">
+          <text class="help-title">卷筒倍率要求</text>
+          <text class="help-text">起升机构 ≥ 20d\n变幅机构 ≥ 18d\n运行机构 ≥ 16d\nd 为钢丝绳公称直径</text>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- ===== 关于弹窗 ===== -->
+  <view wx:if="{{showAboutModal}}" class="modal-mask" bindtap="closeModal">
+    <view class="modal-content about-modal" catchtap="">
+      <view class="modal-header">
+        <text class="modal-title">ℹ️ 关于我们</text>
+        <text class="modal-close" bindtap="closeModal">✕</text>
+      </view>
+      <view class="modal-body about-body">
+        <view class="about-logo">🏗️</view>
+        <text class="about-name">吊装计算助手</text>
+        <text class="about-version">版本 2.0.0</text>
+        <text class="about-desc">本小程序为吊装作业提供专业的计算工具集，包含吊车选型、钢丝绳选型、角度计算、损坏核算、承载力计算和知识手册六大功能模块。内置14款常用汽车起重机性能数据和完整钢丝绳规格参数，帮助吊装从业人员快速完成各类计算。</text>
+        <view class="about-features">
+          <text class="about-feat">✅ 6大专业计算工具</text>
+          <text class="about-feat">✅ 14款吊车型号数据</text>
+          <text class="about-feat">✅ GB/T 5972-2016标准</text>
+          <text class="about-feat">✅ 离线可用无需网络</text>
+        </view>
+        <text class="about-disclaimer">声明：本工具计算结果仅供参考，不作为实际施工依据。实际作业请遵循最新国家标准。</text>
+      </view>
+    </view>
+  </view>
+
+
+</view>

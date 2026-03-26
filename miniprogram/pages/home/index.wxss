@@ -1,0 +1,252 @@
+.page-scroll {
+  height: 100vh;
+}
+
+/* ===== Hero Banner ===== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 48rpx 30rpx 36rpx;
+  background: linear-gradient(135deg, #E8402F 0%, #FF6B57 50%, #FF8C42 100%);
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.hero-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+  background: #FFF;
+}
+
+.hero-circle.c1 {
+  width: 300rpx;
+  height: 300rpx;
+  top: -80rpx;
+  right: -60rpx;
+}
+
+.hero-circle.c2 {
+  width: 200rpx;
+  height: 200rpx;
+  bottom: -40rpx;
+  left: -30rpx;
+}
+
+.hero-circle.c3 {
+  width: 120rpx;
+  height: 120rpx;
+  top: 30rpx;
+  left: 180rpx;
+  opacity: 0.06;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 24rpx;
+}
+
+.hero-title {
+  display: block;
+  font-size: 44rpx;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: 4rpx;
+  margin-bottom: 10rpx;
+}
+
+.hero-subtitle {
+  display: block;
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 2rpx;
+}
+
+/* 提示轮播 */
+.tip-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 30rpx;
+  padding: 14rpx 24rpx;
+  backdrop-filter: blur(10px);
+}
+
+.tip-icon {
+  font-size: 28rpx;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+}
+
+.tip-text {
+  font-size: 24rpx;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+/* ===== 容器 ===== */
+.container {
+  padding: 24rpx 30rpx;
+  padding-bottom: 180rpx;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.section-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1A1A1A;
+}
+
+/* ===== 功能卡片网格 ===== */
+.feature-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  margin-bottom: 32rpx;
+}
+
+.feature-card {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 28rpx 24rpx;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
+}
+
+.card-hover {
+  transform: scale(0.98);
+  box-shadow: 0 1rpx 8rpx rgba(0, 0, 0, 0.08);
+}
+
+.feature-icon-wrap {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 22rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 24rpx;
+}
+
+.feature-icon {
+  font-size: 44rpx;
+}
+
+.feature-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  margin-bottom: 6rpx;
+}
+
+.feature-desc {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.feature-arrow {
+  font-size: 40rpx;
+  color: #DDD;
+  font-weight: 300;
+  flex-shrink: 0;
+  margin-left: 8rpx;
+}
+
+/* ===== 快捷芯片 ===== */
+.quick-row {
+  display: flex;
+  gap: 16rpx;
+  flex-wrap: wrap;
+  margin-bottom: 32rpx;
+}
+
+.quick-chip {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border-radius: 40rpx;
+  padding: 16rpx 28rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.chip-emoji {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.chip-text {
+  font-size: 26rpx;
+  color: #555;
+  font-weight: 500;
+}
+
+/* ===== 安全卡 ===== */
+.safety-card {
+  background: linear-gradient(135deg, #FFFBE6, #FFF8E1);
+  border-radius: 20rpx;
+  padding: 28rpx;
+  border: 2rpx solid #FFE58F;
+  margin-bottom: 24rpx;
+}
+
+.safety-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.safety-icon {
+  font-size: 32rpx;
+  margin-right: 12rpx;
+}
+
+.safety-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #D48806;
+}
+
+.safety-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.safety-item {
+  font-size: 24rpx;
+  color: #8C6B15;
+  line-height: 1.6;
+}
+
+/* 版权 */
+.copyright {
+  text-align: center;
+  padding: 20rpx 0 40rpx;
+}
+
+.copyright text {
+  font-size: 22rpx;
+  color: #CCCCCC;
+}

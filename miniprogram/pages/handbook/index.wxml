@@ -1,0 +1,74 @@
+<view class="handbook-page">
+
+  <!-- ===== 顶部搜索栏 ===== -->
+  <view class="search-bar">
+    <view class="search-inner">
+      <text class="search-icon">🔍</text>
+      <input class="search-input" placeholder="搜索知识点..."
+        value="{{searchKey}}" bindinput="onSearchInput" />
+      <text wx:if="{{searchKey}}" class="search-clear" bindtap="clearSearch">✕</text>
+    </view>
+  </view>
+
+  <!-- ===== 快速导航 ===== -->
+  <scroll-view scroll-x class="quick-nav" enhanced show-scrollbar="{{false}}">
+    <view class="nav-pills">
+      <view wx:for="{{chapters}}" wx:key="id"
+        class="nav-pill {{activeChapter === item.id ? 'active' : ''}}"
+        style="background: {{activeChapter === item.id ? item.color : ''}}"
+        data-id="{{item.id}}" bindtap="jumpToChapter">
+        <text class="pill-icon">{{item.icon}}</text>
+        <text class="pill-text">{{item.title}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- ===== 章节列表 ===== -->
+  <view class="chapters-wrap">
+    <block wx:for="{{chapters}}" wx:key="id">
+      <!-- 搜索过滤 -->
+      <block wx:if="{{!searchKey || item.title.indexOf(searchKey) > -1 || item.desc.indexOf(searchKey) > -1}}">
+        <view class="chapter-card" id="chapter-{{item.id}}">
+          <!-- 章节头部 -->
+          <view class="chapter-header" data-id="{{item.id}}" bindtap="toggleChapter">
+            <view class="chapter-icon" style="background: {{item.color}}20; color: {{item.color}}">
+              <text>{{item.icon}}</text>
+            </view>
+            <view class="chapter-info">
+              <text class="chapter-title">{{item.title}}</text>
+              <text class="chapter-desc">{{item.desc}}</text>
+            </view>
+            <view class="chapter-arrow {{activeChapter === item.id ? 'expanded' : ''}}">
+              <text>›</text>
+            </view>
+          </view>
+
+          <!-- 章节内容 -->
+          <view class="chapter-body {{activeChapter === item.id ? 'show' : ''}}">
+            <view wx:for="{{item.sections}}" wx:for-item="sec" wx:for-index="secIdx"
+              wx:key="title" class="section-item">
+              <view class="section-header" data-key="{{item.id}}-{{secIdx}}" bindtap="toggleSection">
+                <view class="section-dot" style="background: {{item.color}}"></view>
+                <text class="section-title">{{sec.title}}</text>
+                <text class="section-toggle">{{expandedSections[item.id + '-' + secIdx] ? '−' : '+'}}</text>
+              </view>
+              <view class="section-content {{expandedSections[item.id + '-' + secIdx] ? 'show' : ''}}">
+                <text class="section-text">{{sec.content}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+
+  <!-- ===== 底部提示 ===== -->
+  <view class="handbook-footer">
+    <view class="footer-badge">
+      <text class="badge-icon">📖</text>
+      <text class="badge-text">知识来源：GB/T 5972-2016、GB 6067.1-2010 等国家标准</text>
+    </view>
+    <text class="footer-tip">内容仅供参考学习，实际作业请遵循最新标准</text>
+  </view>
+
+</view>

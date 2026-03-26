@@ -1,0 +1,463 @@
+/* 页面滚动容器 */
+.page-scroll {
+  height: 100vh;
+}
+
+/* ===== 图示卡片 ===== */
+.diagram-card {
+  padding: 20rpx;
+  overflow: hidden;
+}
+
+.diagram-wrap {
+  width: 100%;
+  height: 360rpx;
+  position: relative;
+  background: linear-gradient(180deg, #FFF5F3 0%, #FFFFFF 100%);
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+/* 吊车主体 */
+.crane-truck {
+  position: absolute;
+  bottom: 50rpx;
+  left: 30rpx;
+}
+
+.truck-cab {
+  position: absolute;
+  bottom: 38rpx;
+  left: 0;
+  width: 50rpx;
+  height: 40rpx;
+  background: #E8402F;
+  border-radius: 8rpx 8rpx 4rpx 4rpx;
+}
+
+.truck-body {
+  position: absolute;
+  bottom: 26rpx;
+  left: 50rpx;
+  width: 110rpx;
+  height: 26rpx;
+  background: #E8402F;
+  border-radius: 4rpx;
+}
+
+.truck-wheel {
+  position: absolute;
+  bottom: 10rpx;
+  width: 22rpx;
+  height: 22rpx;
+  background: #333;
+  border-radius: 50%;
+  border: 3rpx solid #666;
+}
+
+.truck-wheel.w1 { left: 10rpx; }
+.truck-wheel.w2 { left: 80rpx; }
+.truck-wheel.w3 { left: 120rpx; }
+
+/* 起重臂 */
+.crane-boom {
+  position: absolute;
+  bottom: 110rpx;
+  left: 100rpx;
+  width: 280rpx;
+  height: 10rpx;
+  background: linear-gradient(90deg, #E8402F, #FF8C42);
+  border-radius: 5rpx;
+  transform: rotate(-32deg);
+  transform-origin: left center;
+}
+
+/* 右侧吊装区 */
+.lift-area {
+  position: absolute;
+  right: 40rpx;
+  top: 30rpx;
+  width: 160rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pulley {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background: #FF6B57;
+  border: 3rpx solid #E8402F;
+}
+
+/* 吊索具 */
+.sling-group {
+  width: 100rpx;
+  height: 60rpx;
+  position: relative;
+  margin-top: -4rpx;
+}
+
+.sling-line {
+  position: absolute;
+  top: 0;
+  width: 3rpx;
+  height: 60rpx;
+  background: #666;
+}
+
+.sling-line.sl {
+  left: 25rpx;
+  transform: rotate(15deg);
+  transform-origin: top center;
+}
+
+.sling-line.sr {
+  right: 25rpx;
+  transform: rotate(-15deg);
+  transform-origin: top center;
+}
+
+.label-a {
+  position: absolute;
+  top: 8rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 22rpx;
+  color: #E8402F;
+  font-weight: 700;
+}
+
+.label-h2 {
+  position: absolute;
+  top: 20rpx;
+  right: -40rpx;
+  font-size: 22rpx;
+  color: #1890FF;
+  font-weight: 700;
+}
+
+/* 吊物 */
+.load-box {
+  width: 100rpx;
+  height: 50rpx;
+  background: linear-gradient(180deg, #444, #222);
+  border-radius: 6rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -2rpx;
+}
+
+.load-text {
+  color: #FFF;
+  font-size: 20rpx;
+  font-weight: 600;
+}
+
+.label-h1 {
+  position: absolute;
+  right: -20rpx;
+  top: 118rpx;
+  font-size: 22rpx;
+  color: #52C41A;
+  font-weight: 700;
+}
+
+/* 地面/平台 */
+.ground-platform {
+  width: 120rpx;
+  height: 40rpx;
+  background: linear-gradient(180deg, #D4A574, #C49460);
+  border-radius: 4rpx;
+  margin-top: 20rpx;
+}
+
+.label-h3 {
+  position: absolute;
+  right: -20rpx;
+  bottom: 50rpx;
+  font-size: 22rpx;
+  color: #FAAD14;
+  font-weight: 700;
+}
+
+/* R尺寸线 */
+.r-dimension {
+  position: absolute;
+  bottom: 24rpx;
+  left: 100rpx;
+  right: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.r-line {
+  flex: 1;
+  height: 3rpx;
+  background: #999;
+  position: relative;
+}
+
+.r-line::before,
+.r-line::after {
+  content: '';
+  position: absolute;
+  top: -6rpx;
+  width: 0;
+  height: 0;
+  border-top: 8rpx solid transparent;
+  border-bottom: 8rpx solid transparent;
+}
+
+.r-text {
+  font-size: 26rpx;
+  color: #E8402F;
+  font-weight: 700;
+  margin: 0 8rpx;
+}
+
+/* ===== 表单卡片 ===== */
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.section-title-text {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1A1A1A;
+}
+
+.example-btn {
+  margin-left: auto;
+  font-size: 24rpx;
+  color: #E8402F;
+  padding: 8rpx 20rpx;
+  border: 2rpx solid #E8402F;
+  border-radius: 24rpx;
+}
+
+.input-group.last {
+  margin-bottom: 0;
+}
+
+/* ===== 按钮组 ===== */
+.btn-group {
+  margin-bottom: 24rpx;
+}
+
+.btn-reset {
+  text-align: center;
+  color: #999;
+  font-size: 28rpx;
+  margin-top: 20rpx;
+  padding: 12rpx;
+}
+
+/* ===== 结果卡片 ===== */
+.result-card {
+  background: linear-gradient(135deg, #FFF5F3, #FFFFFF);
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24rpx;
+}
+
+.summary-item {
+  background: #FFFFFF;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  text-align: center;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.summary-value {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #E8402F;
+  margin-bottom: 8rpx;
+}
+
+.summary-label {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.summary-note {
+  margin-top: 16rpx;
+  padding: 12rpx 16rpx;
+  background: #FFF8E1;
+  border-radius: 8rpx;
+}
+
+.summary-note text {
+  font-size: 22rpx;
+  color: #B8860B;
+}
+
+.result-count {
+  margin-left: auto;
+  font-size: 24rpx;
+  color: #52C41A;
+  font-weight: 600;
+}
+
+/* ===== 吊车推荐卡片 ===== */
+.crane-card {
+  background: #FAFAFA;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  border-left: 6rpx solid #E8E8E8;
+  transition: all 0.3s;
+}
+
+.crane-card.ok {
+  border-left-color: #52C41A;
+  background: #F6FFED;
+}
+
+.crane-card.heightInsufficient,
+.crane-card.capacityInsufficient {
+  border-left-color: #FAAD14;
+  background: #FFFBE6;
+}
+
+.crane-card.bothInsufficient {
+  border-left-color: #FF4D4F;
+  background: #FFF2F0;
+}
+
+.crane-card.outOfRange {
+  border-left-color: #1890FF;
+  background: #E6F7FF;
+}
+
+.crane-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.crane-name-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 12rpx;
+}
+
+.crane-name {
+  font-size: 34rpx;
+  font-weight: 800;
+  color: #1A1A1A;
+}
+
+.crane-capacity {
+  font-size: 26rpx;
+  color: #666;
+  font-weight: 600;
+}
+
+.crane-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.crane-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rpx 0;
+}
+
+.stat-label {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.stat-value {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #333;
+}
+
+.stat-value.text-ok {
+  color: #52C41A;
+}
+
+.stat-value.text-bad {
+  color: #FF4D4F;
+}
+
+.crane-margins {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 8rpx;
+  padding-top: 12rpx;
+  border-top: 2rpx dashed #E0E0E0;
+}
+
+.margin-text {
+  font-size: 22rpx;
+  color: #52C41A;
+  background: #F0FFF0;
+  padding: 4rpx 12rpx;
+  border-radius: 6rpx;
+  font-weight: 600;
+}
+
+/* 无结果 */
+.no-result {
+  text-align: center;
+  padding: 40rpx 0;
+}
+
+.no-result-icon {
+  display: block;
+  font-size: 60rpx;
+  margin-bottom: 16rpx;
+}
+
+.no-result-text {
+  display: block;
+  font-size: 30rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+.no-result-hint {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 免责声明 */
+.disclaimer {
+  padding: 20rpx 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.disclaimer text {
+  font-size: 22rpx;
+  color: #BBBBBB;
+  line-height: 1.6;
+}
+
+/* 版权 */
+.copyright {
+  text-align: center;
+  padding: 20rpx 0 40rpx;
+}
+
+.copyright text {
+  font-size: 22rpx;
+  color: #CCCCCC;
+}

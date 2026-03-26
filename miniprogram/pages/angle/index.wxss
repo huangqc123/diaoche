@@ -1,0 +1,127 @@
+.page-scroll { height: 100vh; }
+
+/* 图示 */
+.diagram-card { padding: 20rpx; }
+.angle-diagram {
+  width: 100%; height: 300rpx;
+  position: relative;
+  background: linear-gradient(180deg, #F9F0FF 0%, #FFF 100%);
+  border-radius: 16rpx;
+  display: flex; align-items: center; justify-content: center;
+}
+.d-top-ring {
+  position: absolute; top: 30rpx; left: 50%; transform: translateX(-50%);
+  width: 20rpx; height: 20rpx; border-radius: 50%;
+  background: #722ED1; border: 3rpx solid #531dab; z-index: 3;
+}
+.d-line-left {
+  position: absolute; top: 46rpx; left: 50%;
+  width: 4rpx; height: 160rpx; background: #555;
+  transform-origin: top center; transform: translateX(-2rpx) rotate(25deg); z-index: 1;
+}
+.d-line-right {
+  position: absolute; top: 46rpx; left: 50%;
+  width: 4rpx; height: 160rpx; background: #555;
+  transform-origin: top center; transform: translateX(-2rpx) rotate(-25deg); z-index: 1;
+}
+.d-arc {
+  position: absolute; top: 48rpx; left: 50%; transform: translateX(-50%);
+  width: 60rpx; height: 36rpx;
+  border: 3rpx solid #722ED1; border-top: none;
+  border-radius: 0 0 30rpx 30rpx; z-index: 2;
+}
+.d-label-a {
+  position: absolute; top: 88rpx; left: 50%; transform: translateX(-50%);
+  font-size: 30rpx; font-weight: 800; color: #722ED1; z-index: 2;
+}
+.d-label-l-left {
+  position: absolute; top: 110rpx; left: 25%;
+  font-size: 24rpx; font-weight: 700; color: #1890FF;
+}
+.d-label-l-right {
+  position: absolute; top: 110rpx; right: 25%;
+  font-size: 24rpx; font-weight: 700; color: #1890FF;
+}
+.d-load-bar {
+  position: absolute; bottom: 40rpx; left: 50%; transform: translateX(-50%);
+  width: 300rpx; height: 48rpx;
+  background: linear-gradient(180deg, #333, #1A1A1A);
+  border-radius: 6rpx; z-index: 2;
+  display: flex; align-items: center; justify-content: center;
+}
+.d-load-text { color: #FFF; font-size: 26rpx; font-weight: 700; }
+.d-spread-line {
+  position: absolute; bottom: 16rpx; left: 50%; transform: translateX(-50%);
+  width: 260rpx; height: 3rpx; background: #999; z-index: 3;
+}
+.d-label-d {
+  position: absolute; top: -30rpx; left: 50%; transform: translateX(-50%);
+  font-size: 24rpx; font-weight: 700; color: #FA8C16;
+}
+
+/* 模式切换 */
+.mode-switch {
+  display: flex; gap: 16rpx; margin-bottom: 24rpx;
+}
+.mode-btn {
+  flex: 1; text-align: center;
+  padding: 22rpx 0; border-radius: 14rpx;
+  background: #FFF; color: #666; font-size: 28rpx; font-weight: 600;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.05);
+  transition: all 0.25s;
+}
+.mode-btn.mode-active {
+  background: linear-gradient(135deg, #722ED1, #9254DE);
+  color: #FFF; box-shadow: 0 6rpx 20rpx rgba(114,46,209,0.3);
+}
+
+/* 表单 */
+.card-header { display: flex; align-items: center; margin-bottom: 30rpx; }
+.section-title-text { font-size: 34rpx; font-weight: 700; color: #1A1A1A; }
+.input-group.last { margin-bottom: 0; }
+
+.btn-group { margin-bottom: 24rpx; }
+.btn-reset { text-align: center; color: #999; font-size: 28rpx; margin-top: 20rpx; padding: 12rpx; }
+
+/* 结果英雄区 */
+.result-hero {
+  background: #FFF;
+  padding: 30rpx;
+}
+.result-hero-top {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 16rpx;
+}
+.result-angle { font-size: 56rpx; font-weight: 900; color: #1A1A1A; }
+.safety-badge {
+  padding: 8rpx 24rpx; border-radius: 20rpx;
+}
+.safety-badge text { color: #FFF; font-size: 26rpx; font-weight: 700; }
+.result-factor-label { font-size: 24rpx; color: #999; display: block; }
+.result-factor { font-size: 48rpx; font-weight: 900; display: block; }
+
+/* 详情 */
+.detail-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16rpx 0; border-bottom: 2rpx solid #F5F5F5;
+}
+.detail-row:last-child { border-bottom: none; }
+.dl { font-size: 28rpx; color: #666; }
+.dv { font-size: 28rpx; font-weight: 700; color: #333; }
+.dv.highlight { color: #722ED1; font-size: 30rpx; }
+
+/* 参照表 */
+.ref-table { border-radius: 12rpx; overflow: hidden; }
+.ref-row {
+  display: flex; align-items: center;
+  padding: 16rpx 12rpx; border-bottom: 2rpx solid #F5F5F5;
+}
+.ref-row.ref-header { background: #F5F5F5; }
+.ref-row.ref-header .ref-cell { font-weight: 700; color: #333; }
+.ref-row.ref-warn { background: #FFFBE6; }
+.ref-row.ref-danger { background: #FFF2F0; }
+.ref-cell { flex: 1; font-size: 26rpx; color: #666; text-align: center; }
+.ref-bold { font-weight: 700; color: #333; }
+.ref-note { font-size: 22rpx; color: #999; }
+
+.disclaimer { padding: 20rpx 30rpx; margin-bottom: 20rpx; }
+.disclaimer text { font-size: 22rpx; color: #BBB; line-height: 1.6; }

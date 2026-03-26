@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/crane/index",
+    "pages/rope/index",
+    "pages/angle/index",
+    "pages/damage/index",
+    "pages/handbook/index",
+    "pages/capacity/index",
+    "pages/profile/index",
+    "pages/terms/index",
+    "pages/privacy/index"
+  ],
+  "window": {
+    "backgroundColor": "#F2F3F5",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#E8402F",
+    "navigationBarTitleText": "吊装计算助手",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#999999",
+    "selectedColor": "#E8402F",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}

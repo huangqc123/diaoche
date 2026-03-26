@@ -1,0 +1,442 @@
+/* ============================================
+   京东广告组件样式
+   ============================================ */
+
+/* ===== 动画 ===== */
+.fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+.fade-out {
+  animation: fadeOut 0.3s ease-in forwards;
+}
+.slide-in {
+  animation: slideUp 0.3s ease-out forwards;
+}
+.slide-out {
+  animation: slideDown 0.3s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes slideDown {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+
+/* ===== 广告标签 ===== */
+.ad-label {
+  position: absolute;
+  top: 24rpx;
+  left: 24rpx;
+  background: rgba(0, 0, 0, 0.35);
+  color: #FFF;
+  font-size: 20rpx;
+  padding: 4rpx 14rpx;
+  border-radius: 6rpx;
+  z-index: 10;
+}
+
+.ad-label-small {
+  position: absolute;
+  top: 16rpx;
+  left: 16rpx;
+  background: rgba(0, 0, 0, 0.25);
+  color: #FFF;
+  font-size: 18rpx;
+  padding: 2rpx 10rpx;
+  border-radius: 4rpx;
+  z-index: 10;
+}
+
+.ad-label-tiny {
+  position: absolute;
+  top: 8rpx;
+  right: 80rpx;
+  font-size: 16rpx;
+  color: #BBB;
+}
+
+/* =============================================
+   开屏广告
+   ============================================= */
+.ad-splash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+}
+
+.splash-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.splash-img-area {
+  flex: 1;
+  min-height: 0;
+  max-height: 52vh;
+  overflow: hidden;
+}
+
+.splash-img {
+  width: 100%;
+  height: 100%;
+}
+
+.splash-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #E8402F 0%, #FF6B57 40%, #FF8C42 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.splash-placeholder-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.splash-placeholder-title {
+  font-size: 40rpx;
+  color: #FFFFFF;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+}
+
+.splash-info {
+  padding: 24rpx 40rpx 40rpx;
+  background: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.splash-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 8rpx;
+}
+
+.splash-desc {
+  display: block;
+  font-size: 24rpx;
+  color: #888;
+  margin-bottom: 14rpx;
+}
+
+.splash-price-row {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 18rpx;
+}
+
+.splash-price {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #E8402F;
+  margin-right: 16rpx;
+}
+
+.splash-original-price {
+  font-size: 26rpx;
+  color: #CCC;
+  text-decoration: line-through;
+}
+
+.splash-btn {
+  background: linear-gradient(135deg, #E8402F, #FF6B57);
+  border-radius: 44rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.splash-btn text {
+  color: #FFFFFF;
+  font-size: 32rpx;
+  font-weight: 700;
+  letter-spacing: 4rpx;
+}
+
+/* 跳过按钮 */
+.skip-btn {
+  position: fixed;
+  top: calc(44px + env(safe-area-inset-top));
+  right: 30rpx;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.4);
+  color: #FFFFFF;
+  font-size: 26rpx;
+  padding: 10rpx 28rpx;
+  border-radius: 30rpx;
+  min-width: 100rpx;
+  text-align: center;
+}
+
+/* =============================================
+   插屏广告（计算后弹出）
+   ============================================= */
+.ad-interstitial {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9998;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.interstitial-card {
+  position: relative;
+  width: 600rpx;
+  background: #FFFFFF;
+  border-radius: 28rpx;
+  overflow: hidden;
+  box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.3);
+}
+
+.interstitial-close {
+  position: absolute;
+  top: 12rpx;
+  right: 12rpx;
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 15;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+}
+
+.interstitial-close text {
+  color: #FFF;
+  font-size: 28rpx;
+}
+
+.interstitial-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.interstitial-img-area {
+  width: 100%;
+  height: 360rpx;
+  background: #F5F5F5;
+  overflow: hidden;
+}
+
+.interstitial-img {
+  width: 100%;
+  height: 100%;
+}
+
+.interstitial-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #FFE6DF 0%, #FFF2F0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.interstitial-placeholder-icon {
+  font-size: 100rpx;
+}
+
+.interstitial-info {
+  padding: 24rpx 28rpx 16rpx;
+}
+
+.interstitial-title {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 8rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.interstitial-desc {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 12rpx;
+}
+
+.interstitial-price-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.interstitial-price {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #E8402F;
+}
+
+.interstitial-orig {
+  font-size: 24rpx;
+  color: #CCC;
+  text-decoration: line-through;
+}
+
+.interstitial-tag {
+  background: #FFF2F0;
+  padding: 4rpx 12rpx;
+  border-radius: 6rpx;
+}
+
+.interstitial-tag text {
+  font-size: 20rpx;
+  color: #E8402F;
+  font-weight: 600;
+}
+
+.interstitial-btn {
+  margin: 20rpx 28rpx 28rpx;
+  background: linear-gradient(135deg, #E8402F, #FF6B57);
+  border-radius: 40rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.interstitial-btn text {
+  color: #FFFFFF;
+  font-size: 30rpx;
+  font-weight: 700;
+  letter-spacing: 4rpx;
+}
+
+/* =============================================
+   横幅广告（嵌入式）
+   ============================================= */
+.ad-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF;
+  padding: 18rpx 20rpx;
+  border-radius: 16rpx;
+  margin: 20rpx 0;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+  border: 2rpx solid #FFF0ED;
+}
+
+.banner-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.banner-img-wrap {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-right: 16rpx;
+}
+
+.banner-img {
+  width: 100%;
+  height: 100%;
+}
+
+.banner-icon-wrap {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 12rpx;
+  background: #FFF2F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 16rpx;
+}
+
+.banner-icon {
+  font-size: 40rpx;
+}
+
+.banner-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.banner-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.banner-price {
+  font-size: 28rpx;
+  font-weight: 800;
+  color: #E8402F;
+  margin-top: 2rpx;
+}
+
+.banner-right {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+
+.banner-btn {
+  background: linear-gradient(135deg, #E8402F, #FF6B57);
+  border-radius: 24rpx;
+  padding: 10rpx 24rpx;
+}
+
+.banner-btn text {
+  color: #FFF;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.banner-close {
+  padding: 4rpx 8rpx;
+}
+
+.banner-close text {
+  font-size: 24rpx;
+  color: #CCC;
+}

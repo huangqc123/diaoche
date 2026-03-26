@@ -1,0 +1,90 @@
+<!-- 京东广告弹窗组件 -->
+
+<!-- ===== 开屏广告 ===== -->
+<view wx:if="{{visible && mode === 'splash'}}" class="ad-splash {{closing ? 'fade-out' : 'fade-in'}}">
+  <view class="splash-content" bindtap="onAdTap">
+    <!-- 广告图片 -->
+    <view class="splash-img-area">
+      <image wx:if="{{adData.imageUrl}}" class="splash-img" src="{{adData.imageUrl}}" mode="aspectFill" />
+      <view wx:else class="splash-placeholder">
+        <text class="splash-placeholder-icon">{{adData.icon || '🛒'}}</text>
+        <text class="splash-placeholder-title">{{adData.title}}</text>
+      </view>
+    </view>
+    <!-- 广告信息 -->
+    <view class="splash-info">
+      <text class="splash-title">{{adData.title}}</text>
+      <text class="splash-desc">{{adData.desc}}</text>
+      <view class="splash-price-row" wx:if="{{adData.price}}">
+        <text class="splash-price">¥{{adData.price}}</text>
+        <text wx:if="{{adData.originalPrice}}" class="splash-original-price">¥{{adData.originalPrice}}</text>
+      </view>
+      <view class="splash-btn">
+        <text>立即查看</text>
+      </view>
+    </view>
+    <!-- 广告标签 -->
+    <view class="ad-label">广告</view>
+  </view>
+  <!-- 跳过按钮 -->
+  <view class="skip-btn" bindtap="onSkip">
+    <text wx:if="{{!canSkip}}">{{countdown}}s</text>
+    <text wx:else>跳过</text>
+  </view>
+</view>
+
+<!-- ===== 插屏广告（计算后弹出）===== -->
+<view wx:if="{{visible && mode === 'interstitial'}}" class="ad-interstitial {{closing ? 'fade-out' : 'fade-in'}}" bindtap="onMaskTap">
+  <view class="interstitial-card" catchtap="">
+    <!-- 关闭按钮 -->
+    <view class="interstitial-close" bindtap="onSkip">
+      <text>✕</text>
+    </view>
+    <!-- 广告标记 -->
+    <view class="ad-label-small">广告</view>
+    <!-- 广告内容 -->
+    <view class="interstitial-body" bindtap="onAdTap">
+      <view class="interstitial-img-area">
+        <image wx:if="{{adData.imageUrl}}" class="interstitial-img" src="{{adData.imageUrl}}" mode="aspectFill" />
+        <view wx:else class="interstitial-placeholder">
+          <text class="interstitial-placeholder-icon">{{adData.icon || '🛒'}}</text>
+        </view>
+      </view>
+      <view class="interstitial-info">
+        <text class="interstitial-title">{{adData.title}}</text>
+        <text class="interstitial-desc">{{adData.desc}}</text>
+        <view class="interstitial-price-row" wx:if="{{adData.price}}">
+          <text class="interstitial-price">¥{{adData.price}}</text>
+          <text wx:if="{{adData.originalPrice}}" class="interstitial-orig">¥{{adData.originalPrice}}</text>
+          <view wx:if="{{adData.tag}}" class="interstitial-tag">
+            <text>{{adData.tag}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="interstitial-btn">
+        <text>去看看</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- ===== 横幅广告（页面内嵌）===== -->
+<view wx:if="{{visible && mode === 'banner'}}" class="ad-banner {{closing ? 'slide-out' : 'slide-in'}}" bindtap="onAdTap">
+  <view class="banner-left">
+    <view wx:if="{{adData.imageUrl}}" class="banner-img-wrap">
+      <image class="banner-img" src="{{adData.imageUrl}}" mode="aspectFill" />
+    </view>
+    <view wx:else class="banner-icon-wrap">
+      <text class="banner-icon">{{adData.icon || '🛒'}}</text>
+    </view>
+    <view class="banner-text">
+      <text class="banner-title">{{adData.title}}</text>
+      <text wx:if="{{adData.price}}" class="banner-price">¥{{adData.price}}</text>
+    </view>
+  </view>
+  <view class="banner-right">
+    <view class="banner-btn"><text>查看</text></view>
+    <view class="banner-close" catchtap="onSkip"><text>✕</text></view>
+  </view>
+  <view class="ad-label-tiny">广告</view>
+</view>

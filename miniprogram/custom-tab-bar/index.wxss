@@ -1,0 +1,121 @@
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 110rpx;
+  background: #FFFFFF;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-shadow: 0 -2rpx 12rpx rgba(0, 0, 0, 0.06);
+  z-index: 999;
+}
+
+.tab-bar-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 8rpx;
+}
+
+.icon-box {
+  width: 52rpx;
+  height: 52rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4rpx;
+}
+
+.tab-text {
+  font-size: 22rpx;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* ===== 首页图标 ===== */
+.home-icon {
+  width: 48rpx;
+  height: 48rpx;
+  position: relative;
+}
+
+.home-icon .home-roof {
+  position: absolute;
+  top: 4rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 22rpx solid transparent;
+  border-right: 22rpx solid transparent;
+  border-bottom: 16rpx solid #999;
+}
+
+.home-icon .home-body {
+  position: absolute;
+  bottom: 2rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34rpx;
+  height: 24rpx;
+  background: #999;
+  border-radius: 0 0 4rpx 4rpx;
+}
+
+.home-icon .home-door {
+  position: absolute;
+  bottom: 2rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12rpx;
+  height: 14rpx;
+  background: #FFF;
+  border-radius: 2rpx 2rpx 0 0;
+}
+
+.home-icon.active .home-roof {
+  border-bottom-color: #E8402F;
+}
+
+.home-icon.active .home-body {
+  background: #E8402F;
+}
+
+/* ===== 我的图标 ===== */
+.profile-icon {
+  width: 48rpx;
+  height: 48rpx;
+  position: relative;
+}
+
+.profile-icon .profile-head {
+  position: absolute;
+  top: 4rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 50%;
+  background: #999;
+}
+
+.profile-icon .profile-body {
+  position: absolute;
+  bottom: 2rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32rpx;
+  height: 18rpx;
+  background: #999;
+  border-radius: 16rpx 16rpx 4rpx 4rpx;
+}
+
+.profile-icon.active .profile-head,
+.profile-icon.active .profile-body {
+  background: #E8402F;
+}

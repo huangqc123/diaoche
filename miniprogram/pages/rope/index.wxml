@@ -1,0 +1,209 @@
+<scroll-view scroll-y class="page-scroll" enhanced show-scrollbar="{{false}}">
+  <view class="container">
+
+    <!-- ===== 图示卡片 ===== -->
+    <view class="card diagram-card">
+      <view class="rope-diagram">
+        <!-- 滑轮组 -->
+        <view class="d-hook-group">
+          <view class="d-hook-ring"></view>
+          <view class="d-hook-body"></view>
+        </view>
+        <!-- 左侧吊绳 -->
+        <view class="d-sling-left"></view>
+        <!-- 右侧吊绳 -->
+        <view class="d-sling-right"></view>
+        <!-- 夹角标注 -->
+        <view class="d-angle-arc"></view>
+        <text class="d-label-a">A</text>
+        <!-- 吊物 -->
+        <view class="d-load">
+          <text class="d-load-text">W</text>
+        </view>
+        <!-- 分支标注 -->
+        <text class="d-label-n">n根</text>
+      </view>
+    </view>
+
+    <!-- ===== 输入表单 ===== -->
+    <view class="card">
+      <view class="card-header">
+        <view class="title-bar"></view>
+        <text class="section-title-text">参数输入</text>
+        <text class="example-btn" bindtap="onFillExample">填入示例</text>
+      </view>
+
+      <!-- 吊物重量 W -->
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">吊物重量（W）</text>
+          <view class="unit-toggle">
+            <text class="unit-btn {{weightUnit === 't' ? 'unit-active' : ''}}" data-unit="t" bindtap="switchUnit">吨/t</text>
+            <text class="unit-btn {{weightUnit === 'kg' ? 'unit-active' : ''}}" data-unit="kg" bindtap="switchUnit">千克/kg</text>
+          </view>
+        </view>
+        <input class="input-field" type="digit" placeholder="请输入吊物重量" value="{{W}}" bindinput="onInputW" placeholder-class="input-field-placeholder" />
+      </view>
+
+      <!-- 钢丝绳分支数 n -->
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">钢丝绳分支数（n）</text>
+          <text class="label-unit">单位：根</text>
+        </view>
+        <picker mode="selector" range="{{branchLabels}}" value="{{branchIndex}}" bindchange="onBranchChange">
+          <view class="picker-field">
+            <text class="picker-value">{{n}}根</text>
+            <view class="picker-arrow"></view>
+          </view>
+        </picker>
+      </view>
+
+      <!-- 索具夹角 A -->
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">索具夹角（A）</text>
+          <text class="label-unit">单位：度/°</text>
+        </view>
+        <picker mode="selector" range="{{angleOptions}}" value="{{angleIndex}}" bindchange="onAngleChange">
+          <view class="picker-field">
+            <text class="picker-value">{{A}}°</text>
+            <view class="picker-arrow"></view>
+          </view>
+        </picker>
+      </view>
+
+      <!-- 安全系数 k -->
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">钢丝绳安全系数（k）</text>
+          <text class="label-unit">单位：无</text>
+        </view>
+        <picker mode="selector" range="{{safetyFactors}}" value="{{safetyIndex}}" bindchange="onSafetyChange">
+          <view class="picker-field">
+            <text class="picker-value">{{k}}</text>
+            <view class="picker-arrow"></view>
+          </view>
+        </picker>
+      </view>
+
+      <!-- 钢丝绳结构 -->
+      <view class="input-group">
+        <view class="input-label">
+          <text class="label-text">钢丝绳结构</text>
+          <text class="label-unit">单位：无</text>
+        </view>
+        <picker mode="selector" range="{{structureLabels}}" value="{{structureIndex}}" bindchange="onStructureChange">
+          <view class="picker-field">
+            <text class="picker-value structure-value">{{structureLabels[structureIndex]}}</text>
+            <view class="picker-arrow"></view>
+          </view>
+        </picker>
+      </view>
+
+      <!-- 公称抗拉强度 -->
+      <view class="input-group last">
+        <view class="input-label">
+          <text class="label-text">公称抗拉强度</text>
+          <text class="label-unit">单位：兆帕/MPa</text>
+        </view>
+        <picker mode="selector" range="{{strengthLabels}}" value="{{strengthIndex}}" bindchange="onStrengthChange">
+          <view class="picker-field">
+            <text class="picker-value">{{strengthLabels[strengthIndex]}}</text>
+            <view class="picker-arrow"></view>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- ===== 操作按钮 ===== -->
+    <view class="btn-group">
+      <view class="btn-primary" bindtap="onCalculate">开始计算</view>
+      <view class="btn-reset" bindtap="onReset">重置</view>
+    </view>
+    <view style="text-align: center; font-size: 24rpx; color: #999; margin: 10rpx 0 20rpx;">⚠ 计算结果仅供参考，请以相关标准规范为准</view>
+
+    <!-- ===== 计算结果 ===== -->
+    <block wx:if="{{showResult && result}}">
+      <!-- 计算过程 -->
+      <view class="card result-card">
+        <view class="card-header">
+          <view class="title-bar"></view>
+          <text class="section-title-text">计算过程</text>
+        </view>
+
+        <view class="calc-steps">
+          <view class="calc-step">
+            <text class="step-label">① 吊物总重力 F</text>
+            <text class="step-value">{{result.F}} kN</text>
+          </view>
+          <view class="calc-step">
+            <text class="step-label">② 夹角系数 1/cos(A/2)</text>
+            <text class="step-value">{{result.angleCoefficient}}</text>
+          </view>
+          <view class="calc-step">
+            <text class="step-label">③ 单根绳拉力 S = F/(n×cosα)</text>
+            <text class="step-value highlight">{{result.S}} kN</text>
+          </view>
+          <view class="calc-step">
+            <text class="step-label">④ 最小破断拉力 Fb = S×k</text>
+            <text class="step-value highlight">{{result.Fb_required}} kN</text>
+          </view>
+          <view class="calc-step">
+            <text class="step-label">⑤ 破断拉力系数 Ro</text>
+            <text class="step-value">{{result.Ro}}</text>
+          </view>
+          <view class="calc-step">
+            <text class="step-label">⑥ 计算最小直径 d=√(Fb/Ro)</text>
+            <text class="step-value">{{result.d_min}} mm</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 推荐结果 -->
+      <view class="card recommend-card">
+        <view class="card-header">
+          <view class="title-bar"></view>
+          <text class="section-title-text">推荐选型 <text style="font-size: 24rpx; font-weight: normal; color: #666;">(仅供参考)</text></text>
+        </view>
+
+        <!-- 主推荐 -->
+        <view class="recommend-main">
+          <view class="recommend-icon">✓</view>
+          <view class="recommend-info">
+            <text class="recommend-title">推荐钢丝绳直径</text>
+            <text class="recommend-diameter">{{result.d_selected}} mm</text>
+          </view>
+        </view>
+
+        <view class="recommend-details">
+          <view class="detail-row">
+            <text class="detail-label">实际破断拉力</text>
+            <text class="detail-value">{{result.Fb_actual}} kN</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-label">安全裕度</text>
+            <text class="detail-value safe-margin">+{{result.safetyMargin}}%</text>
+          </view>
+          <view wx:if="{{result.d_next}}" class="detail-row">
+            <text class="detail-label">上一级直径（备选）</text>
+            <text class="detail-value alt-value">{{result.d_next}} mm ({{result.Fb_next}} kN)</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 免责声明 -->
+      <view class="disclaimer">
+        <text>⚠ 以上计算结果仅供参考，实际选型请以相关标准规范为准，并由专业人员核算确认。</text>
+      </view>
+    </block>
+
+    <!-- 版权 -->
+    <view class="copyright">
+      <text>© 吊装计算助手 2024-2026</text>
+    </view>
+
+  </view>
+</scroll-view>
+<!-- 计算后插屏广告已暂时注释 -->
+<!-- <jd-ad id="jdAd" mode="interstitial" /> -->

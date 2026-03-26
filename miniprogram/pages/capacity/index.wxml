@@ -1,0 +1,138 @@
+<scroll-view scroll-y class="page-scroll" enhanced show-scrollbar="{{false}}">
+<view class="container">
+  <view class="card intro-card">
+    <view class="intro-icon">⛓️</view>
+    <view class="intro-content">
+      <text class="intro-title">钢丝绳承载力</text>
+      <text class="intro-desc">输入结构、直径与强度，快速查算单绳安全承载吨位</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-header">
+      <view class="title-bar"></view>
+      <text class="section-title-text">参数设置</text>
+    </view>
+
+    <view class="input-group">
+      <view class="input-label">
+        <text class="label-text">规格型号</text>
+        <text class="label-unit">单位：无</text>
+      </view>
+      <picker mode="selector" range="{{structureLabels}}" value="{{structureIndex >= 0 ? structureIndex : 0}}" bindchange="onStructureChange">
+        <view class="picker-field capacity-picker {{structureIndex < 0 ? 'picker-placeholder' : ''}}">
+          <text class="picker-value capacity-picker-value {{structureIndex < 0 ? 'picker-placeholder-text' : ''}}">{{structureDisplay}}</text>
+          <view class="picker-arrow"></view>
+        </view>
+      </picker>
+    </view>
+
+    <view class="input-group">
+      <view class="input-label">
+        <text class="label-text">直径</text>
+        <text class="label-unit">单位：毫米/mm</text>
+      </view>
+      <view class="inline-input-wrap">
+        <input class="input-field inline-input" type="digit" placeholder="请输入直径" value="{{diameter}}" bindinput="onInputDiameter" placeholder-class="input-field-placeholder" />
+        <text class="inline-unit">mm</text>
+      </view>
+    </view>
+
+    <view class="input-group last">
+      <view class="input-label">
+        <text class="label-text">抗拉强度</text>
+        <text class="label-unit">单位：兆帕/MPa</text>
+      </view>
+      <picker mode="selector" range="{{strengthLabels}}" value="{{strengthIndex >= 0 ? strengthIndex : 0}}" bindchange="onStrengthChange">
+        <view class="picker-field capacity-picker {{strengthIndex < 0 ? 'picker-placeholder' : ''}}">
+          <text class="picker-value capacity-picker-value {{strengthIndex < 0 ? 'picker-placeholder-text' : ''}}">{{strengthDisplay}}</text>
+          <view class="picker-arrow"></view>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="btn-group">
+    <view class="btn-primary" bindtap="onCalculate">开始计算</view>
+    <view class="btn-sub-actions">
+      <text class="text-link" bindtap="onShowFullTable">查看完整直径对照表</text>
+      <text class="text-link reset-link" bindtap="onReset">重置</text>
+    </view>
+  </view>
+  <view style="text-align: center; font-size: 24rpx; color: #999; margin: 10rpx 0 20rpx;">⚠ 计算结果仅供参考，请以相关标准规范为准</view>
+
+  <view class="card result-card">
+    <view class="card-header">
+      <view class="title-bar"></view>
+      <text class="section-title-text">计算结果</text>
+    </view>
+    <view class="result-summary">
+      <view class="summary-item">
+        <text class="summary-value">{{result.capacities[0].load_t_text}}</text>
+        <text class="summary-label">4倍安全系数（吨）</text>
+      </view>
+      <view class="summary-item highlight">
+        <text class="summary-value">{{result.capacities[1].load_t_text}}</text>
+        <text class="summary-label">6倍安全系数（吨）</text>
+      </view>
+      <view class="summary-item">
+        <text class="summary-value">{{result.capacities[2].load_t_text}}</text>
+        <text class="summary-label">8倍安全系数（吨）</text>
+      </view>
+    </view>
+    <view class="detail-list">
+      <view class="detail-row">
+        <text class="detail-label">整绳最小破断拉力</text>
+        <text class="detail-value">{{result.Fb_text}} kN</text>
+      </view>
+      <view class="detail-row">
+        <text class="detail-label">折算吨位</text>
+        <text class="detail-value">{{result.Fb_t_text}} t</text>
+      </view>
+      <view class="detail-row">
+        <text class="detail-label">当前系数 Ro</text>
+        <text class="detail-value">{{result.Ro}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-header">
+      <view class="title-bar"></view>
+      <text class="section-title-text">生成信息</text>
+    </view>
+    <text class="gen-text">{{result.desc}}</text>
+  </view>
+
+  <!-- ===== 完整对照表弹窗 ===== -->
+  <view wx:if="{{showFullTable}}" class="modal-mask" bindtap="onCloseTable">
+    <view class="modal-content" catchtap="">
+      <view class="modal-header">
+        <text class="modal-title">直径 - 承载力对照表 (k=6)</text>
+        <text class="modal-close" bindtap="onCloseTable">✕</text>
+      </view>
+      <scroll-view scroll-y class="modal-body">
+        <view class="full-table">
+          <view class="ft-row ft-header">
+            <text class="ft-cell">直径(mm)</text>
+            <text class="ft-cell">破断力(kN)</text>
+            <text class="ft-cell">6倍承载(t)</text>
+          </view>
+          <view wx:for="{{fullTable}}" wx:key="d" class="ft-row">
+            <text class="ft-cell">∅{{item.d}}</text>
+            <text class="ft-cell">{{item.Fb}}</text>
+            <text class="ft-cell ft-bold">{{item.t6}}t</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <view class="disclaimer">
+    <text>⚠ 此计算结果仅供参考，实际应用中应结合专业人士的意见和现场实际情况进行综合判断。</text>
+  </view>
+</view>
+</scroll-view>
+
+<!-- 计算后插屏广告已暂时注释 -->
+<!-- <jd-ad id="jdAd" mode="interstitial" /> -->

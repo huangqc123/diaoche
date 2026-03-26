@@ -1,0 +1,46 @@
+<scroll-view scroll-y class="page">
+  <view class="container">
+
+    <view class="doc-title">吊装计算助手小程序使用协议</view>
+    <view class="doc-update">更新日期：2026年3月19日</view>
+
+    <view class="doc-intro">
+      <text>本小程序（以下简称"本工具"）由个人开发者独立制作，仅供学习与探索性使用。请在使用前仔细阅读本协议，使用本工具即表示您已阅读并同意本协议全部内容。</text>
+    </view>
+
+    <view class="section">
+      <view class="section-title">1. 工具性质</view>
+      <text class="section-body">本工具是开发者个人学习和探索性质的小程序，不代表任何企业或机构，亦不构成专业技术服务或工程咨询服务。</text>
+    </view>
+
+    <view class="section">
+      <view class="section-title">2. 使用范围</view>
+      <text class="section-body">本工具提供的吊车选型、钢丝绳选型、角度计算、损坏核算、承载力计算等功能，仅供辅助估算和学习参考使用。\n\n所有计算结果均不得直接作为正式工程施工依据，不得替代具备资质的专业工程师出具的计算书或技术方案。</text>
+    </view>
+
+    <view class="section">
+      <view class="section-title">3. 数据来源</view>
+      <text class="section-body">工具内置数据参考了 GB/T 5972、GB/T 20118、GB 6067.1 等公开标准，以及部分设备厂商公开的技术资料。数据可能存在偏差或滞后，请以实际设备手册和最新有效标准为准。</text>
+    </view>
+
+    <view class="section">
+      <view class="section-title">4. 免责声明</view>
+      <text class="section-body">因使用本工具产生的任何直接或间接损失，开发者不承担任何法律责任，包括但不限于：\n\n• 依据本工具计算结果进行施工作业导致的安全事故\n• 计算结果与实际设备性能不符导致的损失\n• 因网络、系统故障等原因导致工具不可用的损失\n\n实际吊装作业必须由持有相应资质证书的专业人员负责指挥和核算。</text>
+    </view>
+
+    <view class="section">
+      <view class="section-title">5. 知识产权</view>
+      <text class="section-body">本工具的代码、界面设计等归开发者所有，未经授权不得复制、传播或用于商业用途。工具内引用的标准内容版权归相应标准发布机构所有。</text>
+    </view>
+
+    <view class="section">
+      <view class="section-title">6. 协议修改</view>
+      <text class="section-body">开发者保留随时修改本协议的权利。协议更新后，继续使用本工具即视为同意更新后的协议内容。</text>
+    </view>
+
+    <view class="doc-footer">
+      <text>如对本协议有任何疑问，可通过"意见反馈"与开发者联系。</text>
+    </view>
+
+  </view>
+</scroll-view>

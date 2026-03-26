@@ -1,0 +1,74 @@
+.page-scroll { height: 100vh; }
+
+.intro-card {
+  background: linear-gradient(135deg, #E6F7FF, #FFF);
+  border: 2rpx solid #BAE7FF;
+}
+.intro-text { font-size: 26rpx; color: #1890FF; line-height: 1.7; }
+
+/* 表单头 */
+.card-header { display: flex; align-items: center; margin-bottom: 30rpx; }
+.section-title-text { font-size: 34rpx; font-weight: 700; color: #1A1A1A; }
+.input-group.last { margin-bottom: 0; }
+
+/* 复选框列表 */
+.check-list { display: flex; flex-direction: column; gap: 16rpx; }
+.check-item {
+  display: flex; align-items: center; padding: 16rpx 0;
+}
+.checkbox {
+  width: 44rpx; height: 44rpx; border: 3rpx solid #DDD; border-radius: 10rpx;
+  display: flex; align-items: center; justify-content: center;
+  margin-right: 16rpx; flex-shrink: 0; transition: all 0.2s;
+  background: #FFF;
+}
+.checkbox.checked {
+  background: #E8402F; border-color: #E8402F;
+}
+.check-mark { color: #FFF; font-size: 26rpx; font-weight: 800; }
+.check-label { font-size: 28rpx; color: #333; }
+
+/* 按钮 */
+.btn-group { margin-bottom: 24rpx; }
+.btn-reset { text-align: center; color: #999; font-size: 28rpx; margin-top: 20rpx; padding: 12rpx; }
+
+/* 判定结果 */
+.verdict-card {
+  text-align: center; padding: 40rpx 30rpx;
+}
+.verdict-scrap {
+  background: linear-gradient(135deg, #FFF2F0, #FFCCC7);
+  border: 2rpx solid #FFA39E;
+}
+.verdict-warn {
+  background: linear-gradient(135deg, #FFFBE6, #FFE58F);
+  border: 2rpx solid #FFD666;
+}
+.verdict-ok {
+  background: linear-gradient(135deg, #F6FFED, #B7EB8F);
+  border: 2rpx solid #95DE64;
+}
+.verdict-icon { font-size: 64rpx; display: block; margin-bottom: 16rpx; }
+.verdict-text {
+  display: block; font-size: 40rpx; font-weight: 800; color: #1A1A1A; margin-bottom: 12rpx;
+}
+.verdict-detail {
+  display: block; font-size: 26rpx; color: #666;
+}
+
+/* 问题列表 */
+.issue-item {
+  padding: 20rpx; border-radius: 12rpx; margin-bottom: 16rpx;
+}
+.issue-item:last-child { margin-bottom: 0; }
+.issue-danger { background: #FFF2F0; border-left: 6rpx solid #FF4D4F; }
+.issue-warn { background: #FFFBE6; border-left: 6rpx solid #FAAD14; }
+.issue-title {
+  display: block; font-size: 30rpx; font-weight: 700; color: #1A1A1A; margin-bottom: 8rpx;
+}
+.issue-detail {
+  display: block; font-size: 26rpx; color: #666; line-height: 1.6;
+}
+
+.disclaimer { padding: 20rpx 30rpx; margin-bottom: 20rpx; }
+.disclaimer text { font-size: 22rpx; color: #BBB; line-height: 1.6; }

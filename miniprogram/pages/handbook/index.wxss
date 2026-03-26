@@ -1,0 +1,247 @@
+/* 页面容器 */
+.handbook-page {
+  min-height: 100vh;
+  background: #F0F2F5;
+  padding-bottom: 60rpx;
+}
+
+/* ===== 搜索栏 ===== */
+.search-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(135deg, #2F54EB 0%, #597EF7 100%);
+  padding: 20rpx 30rpx 24rpx;
+}
+
+.search-inner {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 40rpx;
+  padding: 16rpx 24rpx;
+}
+
+.search-icon {
+  font-size: 28rpx;
+  margin-right: 12rpx;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.search-clear {
+  font-size: 28rpx;
+  color: #999;
+  padding: 0 8rpx;
+}
+
+/* ===== 快速导航 ===== */
+.quick-nav {
+  background: #FFFFFF;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #F0F0F0;
+  white-space: nowrap;
+}
+
+.nav-pills {
+  display: inline-flex;
+  padding: 0 24rpx;
+  gap: 16rpx;
+}
+
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 12rpx 24rpx;
+  border-radius: 30rpx;
+  background: #F5F5F5;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+
+.nav-pill.active {
+  color: #FFFFFF !important;
+}
+
+.nav-pill.active .pill-text {
+  color: #FFFFFF;
+}
+
+.pill-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.pill-text {
+  font-size: 24rpx;
+  color: #666;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ===== 章节卡片 ===== */
+.chapters-wrap {
+  padding: 24rpx 24rpx 0;
+}
+
+.chapter-card {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.chapter-header {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+}
+
+.chapter-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+  font-size: 36rpx;
+  flex-shrink: 0;
+}
+
+.chapter-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chapter-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 6rpx;
+}
+
+.chapter-desc {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.chapter-arrow {
+  font-size: 40rpx;
+  color: #CCC;
+  transition: transform 0.3s;
+  transform: rotate(0deg);
+}
+
+.chapter-arrow.expanded {
+  transform: rotate(90deg);
+}
+
+/* 章节内容展开/收起 */
+.chapter-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.chapter-body.show {
+  max-height: 8000rpx;
+}
+
+/* ===== Section 小节 ===== */
+.section-item {
+  margin: 0 30rpx;
+  border-top: 2rpx solid #F5F5F5;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+}
+
+.section-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.section-title {
+  flex: 1;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.section-toggle {
+  font-size: 36rpx;
+  color: #999;
+  font-weight: 300;
+  width: 48rpx;
+  text-align: center;
+}
+
+/* Section 内容展开/收起 */
+.section-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.section-content.show {
+  max-height: 4000rpx;
+  padding-bottom: 24rpx;
+}
+
+.section-text {
+  font-size: 26rpx;
+  color: #555;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  display: block;
+  padding: 16rpx 20rpx;
+  background: #FAFBFC;
+  border-radius: 12rpx;
+  border-left: 6rpx solid #E8E8E8;
+}
+
+/* ===== 底部提示 ===== */
+.handbook-footer {
+  padding: 40rpx 30rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.footer-badge {
+  display: flex;
+  align-items: center;
+  background: #EFF4FF;
+  padding: 16rpx 24rpx;
+  border-radius: 30rpx;
+  gap: 8rpx;
+}
+
+.badge-icon {
+  font-size: 28rpx;
+}
+
+.badge-text {
+  font-size: 22rpx;
+  color: #2F54EB;
+  font-weight: 500;
+}
+
+.footer-tip {
+  font-size: 22rpx;
+  color: #BBB;
+}

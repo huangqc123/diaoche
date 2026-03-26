@@ -1,0 +1,171 @@
+<scroll-view scroll-y class="page-scroll" enhanced show-scrollbar="{{false}}">
+<view class="container">
+
+  <!-- 页面说明 -->
+  <view class="card intro-card">
+    <text class="intro-text">📋 根据 GB/T 5972-2016 标准，对钢丝绳进行多维度报废判定。请逐项填写检查结果。</text>
+  </view>
+
+  <!-- ===== 1. 断丝检查 ===== -->
+  <view class="card">
+    <view class="card-header">
+      <view class="title-bar" style="background: linear-gradient(180deg, #FF4D4F, #FF7875);"></view>
+      <text class="section-title-text">① 断丝检查</text>
+    </view>
+
+    <view class="input-group">
+      <view class="input-label">
+        <text class="label-text">钢丝绳结构</text>
+      </view>
+      <picker mode="selector" range="{{structureOptions}}" value="{{ropeStructure}}" bindchange="onStructureChange">
+        <view class="picker-field">
+          <text class="picker-value">{{structureOptions[ropeStructure]}}</text>
+          <view class="picker-arrow"></view>
+        </view>
+      </picker>
+    </view>
+
+    <view class="input-group">
+      <view class="input-label">
+        <text class="label-text">6d长度内可见断丝数</text>
+        <text class="label-unit">根</text>
+      </view>
+      <input class="input-field" type="number" placeholder="外部可见断丝数" value="{{brokenWires6d}}" bindinput="onInputBroken6d" placeholder-class="input-field-placeholder" />
+    </view>
+
+    <view class="input-group">
+      <view class="input-label">
+        <text class="label-text">30d长度内可见断丝数</text>
+        <text class="label-unit">根</text>
+      </view>
+      <input class="input-field" type="number" placeholder="外部可见断丝数" value="{{brokenWires30d}}" bindinput="onInputBroken30d" placeholder-class="input-field-placeholder" />
+    </view>
+
+    <view class="input-group last">
+      <view class="input-label">
+        <text class="label-text">谷部断丝数</text>
+        <text class="label-unit">根（极危险）</text>
+      </view>
+      <input class="input-field" type="number" placeholder="钢丝绳凹槽处断丝" value="{{valleyBroken}}" bindinput="onInputValleyBroken" placeholder-class="input-field-placeholder" />
+    </view>
+  </view>
+
+  <!-- ===== 2. 磨损检查 ===== -->
+  <view class="card">
+    <view class="card-header">
+      <view class="title-bar" style="background: linear-gradient(180deg, #FA8C16, #FFC069);"></view>
+      <text class="section-title-text">② 磨损检查</text>
+    </view>
+    <view class="input-group">
+      <view class="input-label">
+        <text class="label-text">原始公称直径</text>
+        <text class="label-unit">mm</text>
+      </view>
+      <input class="input-field" type="digit" placeholder="出厂标称直径" value="{{originalDiameter}}" bindinput="onInputOrigDia" placeholder-class="input-field-placeholder" />
+    </view>
+    <view class="input-group last">
+      <view class="input-label">
+        <text class="label-text">当前实测直径</text>
+        <text class="label-unit">mm</text>
+      </view>
+      <input class="input-field" type="digit" placeholder="当前最小实测直径" value="{{currentDiameter}}" bindinput="onInputCurrDia" placeholder-class="input-field-placeholder" />
+    </view>
+  </view>
+
+  <!-- ===== 3. 腐蚀检查 ===== -->
+  <view class="card">
+    <view class="card-header">
+      <view class="title-bar" style="background: linear-gradient(180deg, #1890FF, #69C0FF);"></view>
+      <text class="section-title-text">③ 腐蚀检查</text>
+    </view>
+    <picker mode="selector" range="{{corrosionOptions}}" value="{{corrosionLevel}}" bindchange="onCorrosionChange">
+      <view class="picker-field">
+        <text class="picker-value" style="color: {{corrosionLevel >= 3 ? '#FF4D4F' : (corrosionLevel >= 2 ? '#FA8C16' : '#333')}}">{{corrosionOptions[corrosionLevel]}}</text>
+        <view class="picker-arrow"></view>
+      </view>
+    </picker>
+  </view>
+
+  <!-- ===== 4. 变形检查 ===== -->
+  <view class="card">
+    <view class="card-header">
+      <view class="title-bar" style="background: linear-gradient(180deg, #722ED1, #B37FEB);"></view>
+      <text class="section-title-text">④ 变形检查</text>
+    </view>
+    <view class="check-list">
+      <view wx:for="{{deformChecks}}" wx:key="id" class="check-item" data-index="{{index}}" bindtap="onDeformCheck">
+        <view class="checkbox {{item.checked ? 'checked' : ''}}">
+          <text wx:if="{{item.checked}}" class="check-mark">✓</text>
+        </view>
+        <text class="check-label">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 5. 热损伤 ===== -->
+  <view class="card">
+    <view class="card-header">
+      <view class="title-bar" style="background: linear-gradient(180deg, #E8402F, #FF7875);"></view>
+      <text class="section-title-text">⑤ 热损伤 / 电弧灼伤</text>
+    </view>
+    <view class="check-item" bindtap="onHeatToggle">
+      <view class="checkbox {{heatDamage ? 'checked' : ''}}">
+        <text wx:if="{{heatDamage}}" class="check-mark">✓</text>
+      </view>
+      <text class="check-label">存在高温、电弧或焊接灼伤痕迹</text>
+    </view>
+  </view>
+
+  <!-- 按钮 -->
+  <view class="btn-group">
+    <view class="btn-primary" bindtap="onEvaluate">综合判定</view>
+    <view class="btn-reset" bindtap="onReset">重置</view>
+  </view>
+
+  <!-- ===== 判定结果 ===== -->
+  <block wx:if="{{showResult && result}}">
+    <!-- 大结论 -->
+    <view class="card verdict-card {{result.scrapRequired ? 'verdict-scrap' : (result.totalWarnings > 0 ? 'verdict-warn' : 'verdict-ok')}}">
+      <view class="verdict-icon">
+        <text wx:if="{{result.scrapRequired}}">🚫</text>
+        <text wx:elif="{{result.totalWarnings > 0}}">⚠️</text>
+        <text wx:else>✅</text>
+      </view>
+      <text class="verdict-text">{{result.verdict}}</text>
+      <text class="verdict-detail">
+        发现 {{result.totalIssues}} 项报废级问题，{{result.totalWarnings}} 项警告
+      </text>
+    </view>
+
+    <!-- 问题详情 -->
+    <view wx:if="{{result.issues.length > 0}}" class="card">
+      <view class="card-header">
+        <view class="title-bar" style="background: #FF4D4F;"></view>
+        <text class="section-title-text">报废级问题</text>
+      </view>
+      <view wx:for="{{result.issues}}" wx:key="title" class="issue-item issue-danger">
+        <text class="issue-title">🔴 {{item.title}}</text>
+        <text class="issue-detail">{{item.detail}}</text>
+      </view>
+    </view>
+
+    <view wx:if="{{result.warnings.length > 0}}" class="card">
+      <view class="card-header">
+        <view class="title-bar" style="background: #FAAD14;"></view>
+        <text class="section-title-text">警告项</text>
+      </view>
+      <view wx:for="{{result.warnings}}" wx:key="title" class="issue-item issue-warn">
+        <text class="issue-title">🟡 {{item.title}}</text>
+        <text class="issue-detail">{{item.detail}}</text>
+      </view>
+    </view>
+  </block>
+
+  <view class="disclaimer">
+    <text>⚠ 判定依据 GB/T 5972-2016，结果仅供参考。实际判废需由专业人员现场检测。</text>
+  </view>
+</view>
+</scroll-view>
+
+<!-- 计算后插屏广告已暂时注释 -->
+<!-- <jd-ad id="jdAd" mode="interstitial" /> -->

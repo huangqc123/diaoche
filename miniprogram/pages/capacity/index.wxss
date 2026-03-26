@@ -1,0 +1,218 @@
+.page-scroll {
+  height: 100vh;
+}
+
+.intro-card {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  background: linear-gradient(135deg, #E6FFFB, #FFFFFF);
+  border: 2rpx solid #87E8DE;
+}
+
+.intro-icon {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 22rpx;
+  background: #13C2C2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+  flex-shrink: 0;
+}
+
+.intro-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.intro-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1A1A1A;
+}
+
+.intro-desc {
+  font-size: 26rpx;
+  color: #666666;
+  line-height: 1.6;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.section-title-text {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1A1A1A;
+}
+
+.capacity-picker {
+  justify-content: space-between;
+}
+
+.capacity-picker-value {
+  color: #333333;
+  font-size: 30rpx;
+  font-weight: 600;
+  max-width: 560rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.picker-placeholder-text {
+  color: #BFBFBF;
+  font-weight: 400;
+}
+
+.inline-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.inline-input {
+  flex: 1;
+}
+
+.inline-unit {
+  font-size: 30rpx;
+  color: #666666;
+  flex-shrink: 0;
+}
+
+.btn-group {
+  margin-bottom: 24rpx;
+}
+
+.btn-sub-actions {
+  display: flex;
+  justify-content: center;
+  gap: 40rpx;
+  margin-top: 20rpx;
+}
+
+.text-link {
+  font-size: 26rpx;
+  color: #1890FF;
+}
+
+.reset-link {
+  color: #999999;
+}
+
+.result-card {
+  background: linear-gradient(135deg, #F8FFFE, #FFFFFF);
+}
+
+.result-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18rpx;
+  margin-bottom: 24rpx;
+}
+
+.summary-item {
+  background: #FFFFFF;
+  border-radius: 14rpx;
+  padding: 22rpx 12rpx;
+  text-align: center;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.04);
+}
+
+.summary-item.highlight {
+  background: linear-gradient(135deg, #13C2C2, #36CFC9);
+}
+
+.summary-value {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 800;
+  color: #1A1A1A;
+  margin-bottom: 10rpx;
+}
+
+.summary-item.highlight .summary-value,
+.summary-item.highlight .summary-label {
+  color: #FFFFFF;
+}
+
+.summary-label {
+  font-size: 22rpx;
+  color: #888888;
+  line-height: 1.5;
+}
+
+.detail-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 0;
+  border-bottom: 2rpx solid #F5F5F5;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.detail-value {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #13C2C2;
+}
+
+.gen-text {
+  font-size: 26rpx;
+  color: #555555;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+/* 弹窗 */
+.modal-mask {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5); z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-content {
+  width: 90%; max-height: 80vh; background: #FFF; border-radius: 24rpx;
+  overflow: hidden; display: flex; flex-direction: column;
+}
+.modal-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 30rpx; border-bottom: 2rpx solid #F0F0F0;
+}
+.modal-title { font-size: 32rpx; font-weight: 700; color: #1A1A1A; }
+.modal-close { font-size: 36rpx; color: #999; padding: 10rpx; }
+.modal-body { flex: 1; padding: 20rpx; max-height: 65vh; }
+
+/* 完整表格 */
+.full-table { border-radius: 8rpx; overflow: hidden; }
+.ft-row {
+  display: flex; align-items: center; padding: 14rpx 8rpx;
+  border-bottom: 2rpx solid #F5F5F5;
+}
+.ft-row:last-child { border-bottom: none; }
+.ft-header { background: #F5F5F5; }
+.ft-header .ft-cell { font-weight: 700; color: #333; }
+.ft-cell { flex: 1; text-align: center; font-size: 26rpx; color: #666; }
+.ft-bold { font-weight: 700; color: #13C2C2; }
+
+.disclaimer { padding: 20rpx 30rpx; margin-bottom: 20rpx; }
+.disclaimer text { font-size: 22rpx; color: #BBBBBB; line-height: 1.6; }
