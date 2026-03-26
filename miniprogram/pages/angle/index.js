@@ -106,8 +106,8 @@ Page({
     const W = parseFloat(this.data.inputWeight)
     const n = parseInt(this.data.inputN) || 2
 
-    if (isNaN(A) || A < 0 || A > 180) {
-      wx.showToast({ title: '角度范围: 0~180°', icon: 'none' }); return
+    if (isNaN(A) || A < 0 || A >= 180) {
+      wx.showToast({ title: '角度范围: 0~179度(180度不受力)', icon: 'none' }); return
     }
     if (!W || W <= 0) {
       wx.showToast({ title: '请输入有效重量', icon: 'none' }); return
@@ -118,8 +118,11 @@ Page({
     const halfAngleRad = (A / 2) * Math.PI / 180
     const cosHalf = Math.cos(halfAngleRad)
     const factor = 1 / cosHalf
-    const S = F / (n * cosHalf) // 每根绳拉力 kN
-    const S_t = S / g           // 每根绳拉力 (等效吨)
+    
+    // 工程安全规范改写：大于等于3支索时，通常假定2支承担对角受力
+    const effective_n = n >= 3 ? 2 : n;
+    const S = F / (effective_n * cosHalf) // 每根主受力绳的拉力 kN
+    const S_t = S / g                     // 每根绳拉力 (等效吨)
 
     let safety, safetyColor
     if (A <= 60) { safety = '安全'; safetyColor = '#52C41A' }

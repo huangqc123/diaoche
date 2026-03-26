@@ -19,17 +19,25 @@ function interpolate(table, radius) {
   }
 
   // 超出最大幅度范围
-  if (radius >= table[table.length - 1].r) {
+  if (radius > table[table.length - 1].r) {
     return { q: table[table.length - 1].q, h: table[table.length - 1].h }
   }
 
-  // 线性插值
+  // 工程安全规范：不采用线性插值，遇到不在表里的幅度，一律取下一个更大对应幅度（即较小的一个起重能力）作为当前起重量
   for (let i = 0; i < table.length - 1; i++) {
-    if (radius >= table[i].r && radius <= table[i + 1].r) {
-      const t = (radius - table[i].r) / (table[i + 1].r - table[i].r)
+    if (radius > table[i].r && radius <= table[i+1].r) {
+      return { q: table[i+1].q, h: table[i+1].h };
+    } else if (radius === table[i].r) {
+      return { q: table[i].q, h: table[i].h };
+    }
+  }
+
+  // 兜底返回下一个较大的幅度值
+  for (let i = 0; i < table.length; i++) {
+    if (radius <= table[i].r) {
       return {
-        q: Math.round((table[i].q + t * (table[i + 1].q - table[i].q)) * 100) / 100,
-        h: Math.round((table[i].h + t * (table[i + 1].h - table[i].h)) * 100) / 100
+        q: table[i].q,
+        h: table[i].h
       }
     }
   }
@@ -164,7 +172,12 @@ function calculateRope(params) {
   // 2. 计算单根钢丝绳的拉力 (kN)
   const halfAngleRad = (A / 2) * Math.PI / 180
   const cosHalf = A > 0 ? Math.cos(halfAngleRad) : 1
-  const S = F / (n * cosHalf)
+  
+  // 对于多肢吊索处理不平衡：根据安全规范，当n>=3且吊物为刚性时通常视为2根主受力(即对角受力假设)
+  const effective_n = n >= 3 ? 2 : n;
+  
+  // 原有的计算被低估了风险，现改为安全分支数
+  const S = F / (effective_n * cosHalf)
 
   // 3. 所需最小破断拉力 (kN)
   const Fb_required = S * k
